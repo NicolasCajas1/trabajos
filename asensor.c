@@ -114,3 +114,87 @@ int main() {
    }
 return 0;
 }
+
+
+
+codigo con funciones 
+#include <stdio.h>
+
+int piso_actual = 0; // Piso actual del ascensor
+int Piso_seleccionado; // Piso seleccionado por el usuario
+int piso_donde_se_llama; // Piso desde donde se llama el ascensor
+
+void ir_a_un_piso() {
+    printf("Ingrese el piso desde donde llama al ascensor: ");
+    scanf("%d", &piso_donde_se_llama);
+    getchar(); // Elimina el caracter 'newline' del buffer
+
+    if (piso_donde_se_llama < 0 || piso_donde_se_llama > 9) {
+        printf("Piso no válido\n");
+    } else if (piso_donde_se_llama == piso_actual) {
+        printf("El ascensor ya está en el piso %d\n", piso_actual);
+    } else {
+        printf("Ascensor en movimiento...\n");
+        int i;
+        for (i = piso_actual; i < piso_donde_se_llama; i++) {
+            printf("Ascensor en piso %d\n", i + 1);
+        }
+        for (i = piso_actual; i > piso_donde_se_llama; i--) {
+            printf("Ascensor en piso %d\n", i - 1);
+        }
+        piso_actual = piso_donde_se_llama;
+        printf("El ascensor ha llegado al piso %d\n", piso_actual);
+    }
+}
+
+void mostrar_piso_actual() {
+    printf("El ascensor está en el piso %d\n", piso_actual);
+}
+
+void mostrar_ubicacion() {
+    if (piso_actual == 0) {
+        printf("El ascensor se encuentra en la planta baja\n");
+    } else if (piso_actual == 9) {
+        printf("El ascensor se encuentra en el último piso\n");
+    } else {
+        printf("El ascensor se encuentra en el piso %d\n", piso_actual);
+    }
+}
+
+int main() {
+    while (1) {
+        printf("\n*********************************\n");
+        printf("*     Sistema de ascensor       *\n");
+        printf("*       ----------------       *\n");
+        printf("* 1. Ir a un piso              *\n");
+        printf("* 2. Mostrar piso actual       *\n");
+        printf("* 3. Mostrar ubicacion         *\n");
+        printf("* 4. Salir del sistema         *\n");
+        printf("*********************************\n\n");
+
+        char option = getchar();
+        getchar(); // Elimina el caracter 'newline' del buffer
+
+        switch (option) {
+            case '1':
+                ir_a_un_piso();
+                break;
+            case '2':
+                mostrar_piso_actual();
+                break;
+            case '3':
+                mostrar_ubicacion();
+                break;
+            case '4':
+                printf("\n***********************\n");
+                printf("*Ha salido del sistema*\n");
+                printf("***********************\n");
+                return 0;
+            default:
+                printf("Opción inválida. Por favor intente de nuevo.\n");
+                break;
+        }
+    }
+
+    return 0;
+}
